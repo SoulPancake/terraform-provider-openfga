@@ -37,6 +37,7 @@ This is a Terraform/OpenTofu provider for OpenFGA. It enables managing the state
       - [Check](#check)
       - [List Objects](#list-objects)
       - [List Users](#list-users)
+- [Development](#development)
 - [Contributing](#contributing)
 - [Author](#author)
 - [License](#license)
@@ -446,9 +447,34 @@ data "openfga_list_users_query" "example" {
 }
 ```
 
+## Development
+
+For information on building, installing, and testing this provider locally, see the [Testing Guide](TESTING.md).
+
+### Quick Start
+
+```bash
+# Build the provider with version
+make build VERSION=0.1.0-dev
+
+# Install to local Terraform plugins directory
+make install VERSION=0.1.0-dev
+
+# Run tests
+make test
+
+# Format code
+make fmt
+
+# Show all available commands
+make help
+```
+
 ## Contributing
 
-See [CONTRIBUTING](https://github.com/openfga/.github/blob/main/CONTRIBUTING.md).
+See [CONTRIBUTING](https://github.com/openfga/.github/blob/main/CONTRIBUTING.md) for general contribution guidelines.
+
+For information on building, testing, and developing this provider, see the [Testing Guide](TESTING.md).
 
 ## Author
 
