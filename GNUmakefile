@@ -14,7 +14,7 @@ endif
 
 install: build
 	mkdir -p $(INSTALL_DIR)
-	mv bin/terraform-provider-openfga_v$(VERSION) $(INSTALL_DIR)/terraform-provider-openfga_v$(VERSION)
+	cp bin/terraform-provider-openfga_v$(VERSION) $(INSTALL_DIR)/terraform-provider-openfga_v$(VERSION)
 
 clean:
 	rm -rf $(HOME)/.terraform.d/plugins/openfga/openfga/openfga/
