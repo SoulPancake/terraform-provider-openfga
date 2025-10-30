@@ -1,10 +1,23 @@
-default: fmt lint install generate
+default: fmt lint generate
+
+VERSION ?=
+GOOS := $(shell go env GOOS)
+GOARCH := $(shell go env GOARCH)
+INSTALL_DIR := $(HOME)/.terraform.d/plugins/openfga/openfga/openfga/$(VERSION)/$(GOOS)_$(GOARCH)
 
 build:
-	go build -v ./...
+ifndef VERSION
+	$(error VERSION is required. Usage: make build VERSION=0.1.0)
+endif
+	mkdir -p bin
+	go build -ldflags "-X main.version=$(VERSION)" -o bin/terraform-provider-openfga_v$(VERSION)
 
 install: build
-	go install -v ./...
+	mkdir -p $(INSTALL_DIR)
+	mv bin/terraform-provider-openfga_v$(VERSION) $(INSTALL_DIR)/terraform-provider-openfga_v$(VERSION)
+
+clean:
+	rm -rf $(HOME)/.terraform.d/plugins/openfga/openfga/openfga/
 
 lint:
 	golangci-lint run
@@ -21,4 +34,4 @@ test:
 testacc:
 	TF_ACC=1 go test -v -cover -timeout 120m -p=1 ./...
 
-.PHONY: fmt lint test testacc build install generate
+.PHONY: fmt lint test testacc build install generate clean
